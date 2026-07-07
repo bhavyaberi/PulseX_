@@ -1,0 +1,10 @@
+{
+  "name": "pulsex-root",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix pulsex",
+    "build": "npm run build --prefix pulsex",
+    "lint": "npm run lint --prefix pulsex",
+    "preview": "npm run preview --prefix pulsex"
+  }
+}

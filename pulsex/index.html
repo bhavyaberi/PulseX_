@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="PulseX — Move. Measure. Master. An intelligent fitness and wellness ecosystem." />
+    <title>PulseX — Move. Measure. Master.</title>
+    <script>
+      // Runs before React mounts / before first paint, so the correct
+      // theme is applied immediately with no flash of the wrong theme.
+      // Default is Dark Mode when no theme has been saved yet.
+      (function () {
+        try {
+          var saved = localStorage.getItem("pulsex-theme");
+          var theme = saved === "light" || saved === "dark" ? saved : "dark";
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        } catch (e) {
+          // localStorage unavailable (e.g. privacy mode) — fall back to dark.
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body class="bg-void">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

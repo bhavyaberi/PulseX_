@@ -1,0 +1,206 @@
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================================
+   THEME TOKENS
+   Light theme values live on :root (the default / fallback).
+   Dark theme values override them the moment the "dark" class is present
+   on <html>. Every color in tailwind.config.js points at one of these
+   variables, so existing utility classes (bg-void, text-ink, bg-surface,
+   border-line, ...) automatically repaint for both themes.
+   ========================================================================= */
+:root {
+  /* Values are space-separated "R G B" triplets so Tailwind can apply
+     opacity modifiers via rgb(var(--c-x) / <alpha-value>). */
+  --c-void: 246 247 251;       /* #F6F7FB */
+  --c-base: 255 255 255;       /* #FFFFFF */
+  --c-surface: 255 255 255;    /* #FFFFFF */
+  --c-surface-2: 238 240 246;  /* #EEF0F6 */
+  --c-surface-3: 228 231 240;  /* #E4E7F0 */
+  --c-line: rgba(10, 15, 29, 0.09);
+  --c-line-strong: rgba(10, 15, 29, 0.16);
+  --c-navy: 231 235 250;       /* #E7EBFA */
+  --c-navy-glow: 220 227 247;  /* #DCE3F7 */
+  --c-ink: 11 17 32;           /* #0B1120 */
+  --c-ink-dim: 75 85 112;      /* #4B5570 */
+  --c-ink-faint: 123 132 160;  /* #7B84A0 */
+  --c-scrollbar-track: #F0F1F6;
+  --c-scrollbar-thumb: #C7CBDB;
+}
+
+.dark {
+  --c-void: 5 7 13;            /* #05070D */
+  --c-base: 10 15 29;          /* #0A0F1D */
+  --c-surface: 16 23 41;       /* #101729 */
+  --c-surface-2: 22 32 58;     /* #16203A */
+  --c-surface-3: 28 39 64;     /* #1C2740 */
+  --c-line: rgba(255, 255, 255, 0.08);
+  --c-line-strong: rgba(255, 255, 255, 0.14);
+  --c-navy: 24 35 63;          /* #18233F */
+  --c-navy-glow: 27 42 82;     /* #1B2A52 */
+  --c-ink: 243 245 250;        /* #F3F5FA */
+  --c-ink-dim: 138 147 172;    /* #8A93AC */
+  --c-ink-faint: 84 94 120;    /* #545E78 */
+  --c-scrollbar-track: #05070d;
+  --c-scrollbar-thumb: #1c2740;
+}
+
+@layer base {
+  * {
+    @apply border-line;
+  }
+
+  html {
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
+  }
+
+  body {
+    @apply bg-void text-ink font-body antialiased transition-colors duration-300;
+    font-feature-settings: "ss01" on, "cv11" on;
+  }
+
+  /* Smooth theme-switch transitions across the whole app, without
+     interfering with existing transform/opacity animations. */
+  header, aside, main, nav, footer,
+  .card, .card-glass, button, a, input, textarea, select {
+    @apply transition-colors duration-300;
+  }
+
+  ::selection {
+    @apply bg-pulse/30 text-ink;
+  }
+
+  /* Slim, on-brand scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--c-scrollbar-track);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--c-scrollbar-thumb);
+    border-radius: 999px;
+    border: 2px solid var(--c-scrollbar-track);
+  }
+
+  :focus-visible {
+    outline: 2px solid #ff7a1a;
+    outline-offset: 3px;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-ink;
+  }
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.8);
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--particle-opacity, 0.55);
+  }
+  88% {
+    opacity: var(--particle-opacity, 0.55);
+  }
+  100% {
+    transform: translateY(var(--particle-rise, -160px)) translateX(var(--particle-drift, 12px)) scale(1);
+    opacity: 0;
+  }
+}
+
+.particle {
+  animation-name: particle-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+.noise-layer {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+@layer components {
+  /* ---------- Layout helpers ---------- */
+  .container-px {
+    @apply px-6 md:px-10 lg:px-16 xl:px-24;
+  }
+
+  .section-y {
+    @apply py-24 md:py-32;
+  }
+
+  .bg-noise-grid {
+    background-image: theme("backgroundImage.grid-faint");
+    background-size: theme("backgroundSize.grid");
+    background-position: center top;
+  }
+
+  /* ---------- Eyebrow / label ---------- */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold tracking-[0.22em] uppercase text-pulse;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5
+           text-sm font-semibold tracking-tight transition-all duration-300 ease-premium
+           disabled:opacity-40 disabled:pointer-events-none whitespace-nowrap;
+  }
+
+  .btn-primary {
+    @apply btn bg-pulse text-void shadow-glow
+           hover:shadow-glow-lg hover:-translate-y-0.5 hover:bg-pulse-soft
+           active:translate-y-0 active:shadow-none;
+  }
+
+  .btn-secondary {
+    @apply btn bg-ink/[0.04] text-ink border border-line-strong backdrop-blur-md
+           hover:bg-ink/[0.08] hover:border-ink/20 hover:-translate-y-0.5
+           active:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply btn text-ink-dim hover:text-ink px-4 py-2;
+  }
+
+  /* ---------- Cards / glass surfaces ---------- */
+  .card {
+    @apply relative rounded-3xl border border-line bg-surface/60 backdrop-blur-xl shadow-surface;
+  }
+
+  .card-glass {
+    @apply relative rounded-3xl border border-ink/10 bg-ink/[0.035] backdrop-blur-2xl;
+  }
+
+  .card-hover {
+    @apply transition-all duration-500 ease-premium hover:border-ink/20 hover:bg-surface/90
+           hover:-translate-y-1;
+  }
+
+  /* ---------- Nav link with pulse-trace underline ---------- */
+  .nav-link {
+    @apply relative text-sm font-medium text-ink-dim transition-colors duration-300 hover:text-ink;
+  }
+
+  .nav-link::after {
+    content: "";
+    @apply absolute left-0 -bottom-1 h-[1.5px] w-0 bg-pulse transition-all duration-300 ease-premium;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  /* ---------- Pill / badge ---------- */
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-line-strong bg-ink/[0.03]
+           px-4 py-1.5 text-xs font-medium text-ink-dim backdrop-blur-md;
+  }
+}
