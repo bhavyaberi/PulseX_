@@ -1,138 +1,78 @@
-# 🏋️ PulseX – AI-Powered Fitness Tracking Platform
+# 💻 PulseX – Frontend
 
-![License](https://img.shields.io/badge/License-Academic-blue) ![Frontend](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB) ![Backend](https://img.shields.io/badge/Backend-Node.js%20%2B%20Express-green) ![Database](https://img.shields.io/badge/Database-MongoDB-brightgreen) ![Auth](https://img.shields.io/badge/Auth-JWT-orange) ![AI](https://img.shields.io/badge/AI-Groq-purple)
+![Frontend](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB) ![Styling](https://img.shields.io/badge/Styling-Tailwind%20CSS-38BDF8) ![Routing](https://img.shields.io/badge/Routing-React%20Router-CA4245) ![AI](https://img.shields.io/badge/AI-Pulse%20AI-purple)
 
 ## 📌 Overview
 
-PulseX is a full-stack fitness tracking platform that helps users manage their entire fitness journey in one place. Users can log workouts, plan meals, track daily health metrics like water intake, sleep, and steps, and monitor their progress over time through simple charts.
+This is the frontend of PulseX, built with React and Vite. It gives users a clean dashboard to log workouts, plan meals, track daily health metrics, and chat with **Pulse AI** for fitness and nutrition help.
 
-The platform also includes **Pulse AI**, a smart chat assistant built on the Groq API. It can answer fitness and nutrition questions and guide users around the website. If the AI service isn't available, it automatically falls back to a simple offline response mode so the app never breaks.
+This app only handles the interface — it talks to the PulseX backend for authentication, storing data, and fetching information. Make sure the backend is running before using this app.
 
 ---
 
 ## ✨ Features
 
-### 🙋 User
-- Secure Signup & Login (JWT Authentication)
-- Fitness Assessment & BMI/Calorie Calculators
-- Daily Activity Logging (water, sleep, steps, heart rate)
-- Workout Logging, Scheduling & History
-- Meal Planning & Nutrition Tracking
-- Goal Setting & Progress Analytics
-- In-app Notifications
-- Dark Mode / Light Mode
-
-### 🛡️ Admin
-- View and manage contact form submissions
-- Secure access using an admin-only secret key
-
-### 🤖 Pulse AI
-- Chat assistant for fitness and nutrition queries
-- Understands the website's pages and can guide users
-- Falls back to offline mode if no API key is set
+- Landing page and public pages (About, Features, Contact, FAQ, Blog)
+- Signup & Login pages
+- User dashboard with:
+  - Fitness assessment & goal setting
+  - Daily activity logging (water, sleep, steps, heart rate)
+  - Workout tracking, history & calendar
+  - Meal planner & nutrition dashboard
+  - Progress analytics with charts
+  - Profile & settings
+- Hidden admin page to manage contact requests
+- Dark Mode / Light Mode toggle
+- Pulse AI floating chat widget
 
 ---
 
 ## 🛠️ Tech Stack
 
-**Frontend:** React 19, Vite, React Router, Tailwind CSS, Framer Motion, Recharts
-
-**Backend:** Node.js, Express, MongoDB (Mongoose), JWT, bcrypt
-
-**AI:** Groq API (Llama 3.3 70B)
+React 19, Vite, React Router, Tailwind CSS, Framer Motion, Recharts, Lucide Icons
 
 ---
 
 ## 📂 Project Structure
 
 ```
-PulseX
+pulsex
 │
-├── backend
-│   ├── config
-│   ├── controllers
-│   ├── middleware
-│   ├── models
-│   ├── routes
-│   ├── seeder.js
-│   ├── package.json
-│   └── server.js
+├── src
+│   ├── assets
+│   ├── components
+│   │   ├── common
+│   │   ├── layout
+│   │   ├── pulse-ai
+│   │   └── ui
+│   ├── context
+│   ├── pages
+│   │   ├── public
+│   │   ├── auth
+│   │   ├── user
+│   │   └── admin
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
 │
-├── pulsex
-│   ├── src
-│   │   ├── components
-│   │   ├── context
-│   │   ├── pages
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── public
-│   ├── index.html
-│   └── package.json
-│
-├── README.md
+├── public
+├── index.html
+├── vite.config.js
+├── tailwind.config.js
 └── package.json
 ```
 
 ---
 
-## ⚙️ Installation
+## 🤖 Pulse AI
 
-**1. Clone the repository**
-```
-git clone https://github.com/your-username/PulseX.git
-cd PulseX
-```
-
-**2. Set up the backend**
-```
-cd backend
-npm install
-cp .env.example .env
-```
-Fill in your MongoDB URI, JWT secret, and admin secret in `.env`, then start it:
-```
-npm run dev
-```
-
-**3. Set up the frontend**
-```
-cd pulsex
-npm install
-cp .env.example .env
-npm run dev
-```
-
-The frontend runs at `http://localhost:5173` and the backend at `http://localhost:5001`.
-
----
-
-## 🔑 Environment Variables
-
-**backend/.env**
-```
-PORT=5000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-JWT_EXPIRE=30d
-NODE_ENV=development
-ADMIN_SECRET=your_admin_secret
-```
-
-**pulsex/.env**
-```
-VITE_GEMINI_API_KEY=your_groq_api_key
-```
+Pulse AI is a chat widget that:
+- Answers fitness, workout, and nutrition questions
+- Helps users navigate the website
+- Works offline with simulated responses if no API key is set
 
 ---
 
 ## 📄 License
 
 This project is for academic and educational purposes.
-
----
-
-## 👥 Contributors
-
-- Bebo
-- Pritam
-- Aarshi

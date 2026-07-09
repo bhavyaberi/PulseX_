@@ -1,52 +1,61 @@
-# PulseX — Backend API
+# ⚙️ PulseX – Backend
 
-Node.js / Express / MongoDB REST API powering the PulseX fitness tracker. Handles auth, user profiles, workouts, meals, daily metrics, fitness assessments, notifications, and admin-managed contact requests.
+![Backend](https://img.shields.io/badge/Backend-Node.js%20%2B%20Express-green) ![Database](https://img.shields.io/badge/Database-MongoDB-brightgreen) ![Auth](https://img.shields.io/badge/Auth-JWT-orange)
 
-## Tech Stack
+## 📌 Overview
 
-Express 4, Mongoose 8 / MongoDB, JWT (jsonwebtoken), bcryptjs, cors, dotenv, nodemon (dev only)
+This is the backend API for PulseX. It's built with Node.js, Express, and MongoDB, and handles everything the frontend needs — user accounts, workouts, meals, daily metrics, fitness assessments, notifications, and contact form requests.
 
-## Project Structure
+Users log in and get a JWT token, which they use to access their protected data. Admins use a separate secret key to manage contact form submissions.
 
-backend/
-├── config/db.js                # MongoDB connection
-├── controllers/                # authController, userController, workoutController, mealController, metricController, assessmentController, notificationController, contactController
-├── middleware/                 # authMiddleware (protect), adminMiddleware (protectAdmin), errorMiddleware
-├── models/                     # User, WorkoutLog, Meal, DailyLog, FitnessAssessment, Notification, ContactRequest
-├── routes/                     # Express routers, mounted in server.js
-├── seeder.js                   # database seeding script
-├── test-database.js            # DB connectivity test script
-├── server.js                   # app entry point
-└── package.json
+---
 
-The API runs on http://localhost:5001 (or PORT from .env).
+## ✨ What It Handles
 
-## Environment Variables (.env)
+- User signup & login (with hashed passwords)
+- User profile management
+- Workout logging, scheduling & history
+- Meal logging
+- Daily metrics: water, sleep, steps, heart rate, calories, measurements
+- Fitness assessments
+- Notifications
+- Public contact form + admin-only inbox to manage messages
 
-PORT=5000
-MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/pulsex?retryWrites=true&w=majority
-JWT_SECRET=your_jwt_secret_key_here
-JWT_EXPIRE=30d
-NODE_ENV=development
-ADMIN_SECRET=your_admin_secret_key_here
+---
 
-PORT — port Express listens on
-MONGODB_URI — MongoDB Atlas (or local) connection string
-JWT_SECRET — secret used to sign/verify user auth tokens
-JWT_EXPIRE — auth token lifetime (e.g. 30d)
-NODE_ENV — development / production
-ADMIN_SECRET — shared secret required to access admin-only endpoints (e.g. contact requests). Not a per-user credential — checked directly against adminMiddleware.
+## 🛠️ Tech Stack
 
-Note: ADMIN_SECRET currently must be supplied by the admin client (the hidden /admin/contact-requests frontend route) and is typically kept in the browser's session storage for that session rather than persisted — treat it like a password.
+Express, MongoDB (Mongoose), JWT, bcrypt, cors, dotenv, nodemon
 
-## API Overview
+---
 
-All routes are mounted under /api. Public endpoints handle signup/login and the contact form. Everything else (workouts, meals, metrics, fitness assessments, notifications, user profile) requires a valid user JWT via the protect middleware. Contact request management (viewing/updating/deleting inquiries) is admin-only, gated by the protectAdmin middleware using ADMIN_SECRET. A base health-check route at / confirms the API is running, and unmatched routes fall through to a centralized 404/error handler.
+## 📂 Project Structure
 
-## Auth Model
+```
+backend
+│
+├── config
+├── controllers
+├── middleware
+├── models
+├── routes
+├── seeder.js
+├── test-database.js
+├── package.json
+└── server.js
+```
 
-Passwords are hashed with bcryptjs before being stored on the User model. On login/signup, a JWT is issued (JWT_SECRET, expires per JWT_EXPIRE) and must be sent by the frontend as a Bearer token for all protected routes. authMiddleware's protect function verifies the JWT and attaches the user to req. adminMiddleware's protectAdmin function checks a request-supplied admin key against process.env.ADMIN_SECRET — a shared-secret admin gate, separate from the regular user JWT flow.
+---
 
-## CORS
+## 🔐 How Auth Works
 
-CORS is enabled globally with default settings — restrict this to specific origins before deploying to production.
+1. User signs up or logs in → password is checked/hashed with bcrypt
+2. A JWT token is generated and sent back to the frontend
+3. The frontend includes this token on every request to protected routes
+4. Admin routes are protected separately using `ADMIN_SECRET`, not a user token
+
+---
+
+## 📄 License
+
+This project is for academic and educational purposes.
