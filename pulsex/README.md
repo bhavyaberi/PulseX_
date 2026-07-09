@@ -1,62 +1,138 @@
-# PulseX — Frontend
+# 🏋️ PulseX – AI-Powered Fitness Tracking Platform
 
-The React frontend for PulseX, a fitness tracking web app. Built with Vite, React Router, Tailwind CSS, and Framer Motion.
+![License](https://img.shields.io/badge/License-Academic-blue) ![Frontend](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB) ![Backend](https://img.shields.io/badge/Backend-Node.js%20%2B%20Express-green) ![Database](https://img.shields.io/badge/Database-MongoDB-brightgreen) ![Auth](https://img.shields.io/badge/Auth-JWT-orange) ![AI](https://img.shields.io/badge/AI-Groq-purple)
 
-This app is the UI only. It talks to the backend API in ../backend for auth, workouts, meals, metrics, and more. Start the backend separately before running this app.
+## 📌 Overview
 
-## Tech Stack
+PulseX is a full-stack fitness tracking platform that helps users manage their entire fitness journey in one place. Users can log workouts, plan meals, track daily health metrics like water intake, sleep, and steps, and monitor their progress over time through simple charts.
 
-- React 19 + React Router 7 — SPA routing
-- Vite 8 — dev server & build tooling
-- Tailwind CSS 3 — styling
-- Framer Motion — animations
-- Recharts — progress/analytics charts
-- Lucide React — icons
-- Lenis — smooth scrolling
-- oxlint — linting
+The platform also includes **Pulse AI**, a smart chat assistant built on the Groq API. It can answer fitness and nutrition questions and guide users around the website. If the AI service isn't available, it automatically falls back to a simple offline response mode so the app never breaks.
 
-## Project Structure
+---
 
-pulsex/
-├── src/
-│   ├── assets/            # images/logos
-│   ├── components/
-│   │   ├── common/        # Footer, Toast
-│   │   ├── layout/        # PublicLayout, AuthLayout, DashboardLayout, Navbar
-│   │   ├── pulse-ai/      # Pulse AI chat widget (ChatWindow, MessageItem, api.js)
-│   │   └── ui/            # AnimatedNumber, GradientBlobs, Magnetic, Particles, PulseTrace, ThemeToggle
-│   ├── context/            # AppContext, ThemeContext
-│   ├── pages/
-│   │   ├── public/        # About, Features, Contact, FAQ, Blog, Privacy, Terms, NotFound
-│   │   ├── auth/           # Login, Signup
-│   │   ├── user/           # Dashboard pages: overview, goals, workouts, meals, progress, settings, etc.
-│   │   └── admin/          # ContactRequests (hidden admin-only route)
-│   ├── App.jsx             # route definitions
-│   ├── main.jsx            # app entry point
-│   └── index.css           # Tailwind + global styles
-├── public/
-├── index.html
-├── vite.config.js          # includes a local Pulse AI chat proxy middleware
-├── tailwind.config.js
+## ✨ Features
+
+### 🙋 User
+- Secure Signup & Login (JWT Authentication)
+- Fitness Assessment & BMI/Calorie Calculators
+- Daily Activity Logging (water, sleep, steps, heart rate)
+- Workout Logging, Scheduling & History
+- Meal Planning & Nutrition Tracking
+- Goal Setting & Progress Analytics
+- In-app Notifications
+- Dark Mode / Light Mode
+
+### 🛡️ Admin
+- View and manage contact form submissions
+- Secure access using an admin-only secret key
+
+### 🤖 Pulse AI
+- Chat assistant for fitness and nutrition queries
+- Understands the website's pages and can guide users
+- Falls back to offline mode if no API key is set
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:** React 19, Vite, React Router, Tailwind CSS, Framer Motion, Recharts
+
+**Backend:** Node.js, Express, MongoDB (Mongoose), JWT, bcrypt
+
+**AI:** Groq API (Llama 3.3 70B)
+
+---
+
+## 📂 Project Structure
+
+```
+PulseX
+│
+├── backend
+│   ├── config
+│   ├── controllers
+│   ├── middleware
+│   ├── models
+│   ├── routes
+│   ├── seeder.js
+│   ├── package.json
+│   └── server.js
+│
+├── pulsex
+│   ├── src
+│   │   ├── components
+│   │   ├── context
+│   │   ├── pages
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── public
+│   ├── index.html
+│   └── package.json
+│
+├── README.md
 └── package.json
+```
 
-## Key Routes
+---
 
-Landing page at /. Public pages: about, features, contact, faq, blog, privacy, terms. Auth pages: login, signup. Dashboard pages under /dashboard cover overview, assessment, goals, activity, workouts (tracking, history, calendar, library, favorites), diet (meal planner, nutrition), progress analytics, settings, and profile. There is also a hidden admin-only route for contact requests, not linked in navigation.
+## ⚙️ Installation
 
-## Environment Variables
+**1. Clone the repository**
+```
+git clone https://github.com/your-username/PulseX.git
+cd PulseX
+```
 
-Create pulsex/.env from .env.example:
+**2. Set up the backend**
+```
+cd backend
+npm install
+cp .env.example .env
+```
+Fill in your MongoDB URI, JWT secret, and admin secret in `.env`, then start it:
+```
+npm run dev
+```
 
-VITE_GEMINI_API_KEY=your_gemini_api_key_here
+**3. Set up the frontend**
+```
+cd pulsex
+npm install
+cp .env.example .env
+npm run dev
+```
 
-Despite the variable name in the example file, the current Pulse AI proxy (in vite.config.js) reads GROQ_API_KEY from the environment to call the Groq API (llama-3.3-70b-versatile). If no key is configured, Pulse AI automatically falls back to an offline simulated response mode — the app still works without any AI key.
+The frontend runs at `http://localhost:5173` and the backend at `http://localhost:5001`.
 
-## Pulse AI Chat Widget
+---
 
-Implements a floating chat assistant that is aware of PulseX's page structure and can guide users around the site, answers fitness/nutrition/wellness questions, sends requests to a local /api/chat endpoint (Vite middleware in vite.config.js) which proxies to the Groq API server-side so the key is never exposed to the browser, includes basic in-memory rate limiting (20 requests/minute per IP), and falls back to a simulated offline mode if GROQ_API_KEY isn't set.
+## 🔑 Environment Variables
 
-## Notes
+**backend/.env**
+```
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRE=30d
+NODE_ENV=development
+ADMIN_SECRET=your_admin_secret
+```
 
-The admin contact-requests page is intentionally not linked from the navigation and requires the backend's admin secret to fetch data. Design system uses a dark glassmorphism aesthetic; global tokens live in src/index.css.
+**pulsex/.env**
+```
+VITE_GEMINI_API_KEY=your_groq_api_key
+```
 
+---
+
+## 📄 License
+
+This project is for academic and educational purposes.
+
+---
+
+## 👥 Contributors
+
+- Bebo
+- Pritam
+- Aarshi
