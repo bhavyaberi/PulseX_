@@ -75,7 +75,7 @@ export default function Login() {
       <form onSubmit={handleLoginSubmit} className="mt-8 space-y-4">
         <div>
           <label className="block text-[10px] font-bold uppercase tracking-wider text-ink-dim mb-1.5">Email Address</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="alex.rivera@pulsex.io" className="w-full rounded-xl border border-line bg-surface/50 px-4 py-3 text-xs text-ink placeholder-ink-faint focus:border-pulse focus:outline-none focus:ring-1 focus:ring-pulse"/>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="abc@pulsex.io" className="w-full rounded-xl border border-line bg-surface/50 px-4 py-3 text-xs text-ink placeholder-ink-faint focus:border-pulse focus:outline-none focus:ring-1 focus:ring-pulse"/>
         </div>
 
         <div>
@@ -87,7 +87,7 @@ export default function Login() {
         </div>
 
         <button type="submit" disabled={loading} className="w-full btn-primary justify-center !py-3 text-xs font-bold disabled:opacity-40 mt-6">
-          {loading ? "Logging In..." : "Log In"}
+          {loading ? "Signing In..." : "Sign In"}
         </button>
       </form>
 

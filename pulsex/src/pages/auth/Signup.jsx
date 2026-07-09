@@ -60,12 +60,12 @@ export default function Signup() {
       <form onSubmit={handleSignup} className="mt-8 space-y-4">
         <div>
           <label className="block text-[10px] font-bold uppercase tracking-wider text-ink-dim mb-1.5">Athlete Name</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Alex Rivera" className="w-full rounded-xl border border-line bg-surface/50 px-4 py-3 text-xs text-ink placeholder-ink-faint focus:border-pulse focus:outline-none focus:ring-1 focus:ring-pulse"/>
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Full Name" className="w-full rounded-xl border border-line bg-surface/50 px-4 py-3 text-xs text-ink placeholder-ink-faint focus:border-pulse focus:outline-none focus:ring-1 focus:ring-pulse"/>
         </div>
 
         <div>
           <label className="block text-[10px] font-bold uppercase tracking-wider text-ink-dim mb-1.5">Email Address</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="alex.rivera@pulsex.io" className="w-full rounded-xl border border-line bg-surface/50 px-4 py-3 text-xs text-ink placeholder-ink-faint focus:border-pulse focus:outline-none focus:ring-1 focus:ring-pulse"/>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="abc@pulsex.io" className="w-full rounded-xl border border-line bg-surface/50 px-4 py-3 text-xs text-ink placeholder-ink-faint focus:border-pulse focus:outline-none focus:ring-1 focus:ring-pulse"/>
         </div>
 
         <div>

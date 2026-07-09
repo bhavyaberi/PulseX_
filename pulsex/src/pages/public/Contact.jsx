@@ -98,12 +98,12 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-ink-dim mb-2">Name</label>
-              <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Alex Rivera" className="w-full rounded-xl border border-line bg-surface/60 px-4 py-3 text-sm text-ink placeholder-ink-faint focus:border-pulse focus:outline-none focus:ring-1 focus:ring-pulse transition"/>
+              <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Full Name" className="w-full rounded-xl border border-line bg-surface/60 px-4 py-3 text-sm text-ink placeholder-ink-faint focus:border-pulse focus:outline-none focus:ring-1 focus:ring-pulse transition"/>
             </div>
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-ink-dim mb-2">Email Address</label>
-              <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="alex@example.com" className="w-full rounded-xl border border-line bg-surface/60 px-4 py-3 text-sm text-ink placeholder-ink-faint focus:border-pulse focus:outline-none focus:ring-1 focus:ring-pulse transition"/>
+              <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="abc@example.com" className="w-full rounded-xl border border-line bg-surface/60 px-4 py-3 text-sm text-ink placeholder-ink-faint focus:border-pulse focus:outline-none focus:ring-1 focus:ring-pulse transition"/>
             </div>
 
             <div>
